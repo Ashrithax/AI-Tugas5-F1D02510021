@@ -1,0 +1,5 @@
+{
+  "keterangan": "Kasus 1: tanah kering, hujan tidak turun -> kekurangan air",
+  "sensor": {"kelembapan_tanah": 30, "ph_tanah": 6.3, "suhu_udara": 30, "kelembapan_udara": 70},
+  "ya": ["hujan tidak turun beberapa hari terakhir"]
+}

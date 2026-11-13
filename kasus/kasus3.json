@@ -1,0 +1,5 @@
+{
+  "keterangan": "Kasus 3: musim hujan, becek, pH asam, panas, daun layu -> banyak kesimpulan",
+  "sensor": {"kelembapan_tanah": 85, "ph_tanah": 5.0, "suhu_udara": 36, "kelembapan_udara": 90},
+  "ya": ["sedang musim hujan", "air menggenang di bedengan atau drainase buruk", "daun layu mulai dari bawah dan menguning"]
+}

@@ -1,0 +1,5 @@
+{
+  "keterangan": "Kasus 2 (negatif): semua kondisi normal -> tidak ada kesimpulan",
+  "sensor": {"kelembapan_tanah": 60, "ph_tanah": 6.4, "suhu_udara": 28, "kelembapan_udara": 75},
+  "ya": []
+}

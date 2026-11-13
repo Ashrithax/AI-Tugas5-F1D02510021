@@ -1,0 +1,85 @@
+{
+  "judul": "Diagnosis Kondisi Lahan Cabai dari Data Sensor IoT",
+  "batas": "Pengetahuan dirangkum dari publikasi ilmiah budidaya cabai merah pada lahan masam di Jurnal Hortikultura Indonesia IPB (2021) serta kajian monitoring lingkungan cabai berbasis sensor IoT di Jurnal ELKOMIKA (2022). Ambang kelembapan tanah merupakan kalibrasi sensor proyek IoT. Hasil diagnosis dan tindakan merupakan saran awal untuk membantu monitoring lahan, bukan pengganti analisis laboratorium tanah.",
+  "sumber": {
+    "S1": "Syukur, M., Sujiprihati, S., & Koswara, J. (2021). Evaluasi Paket Teknologi Budidaya Hibrida Cabai Merah untuk Hasil Tinggi di Lahan Masam. Jurnal Hortikultura Indonesia (IPB), 12(1), hal. 21-30. DOI: https://doi.org/10.29244/jhi.12.1.21-30 (Akses terbuka: https://journal.ipb.ac.id/index.php/jhi/article/view/33420, diakses 13 November 2026)",
+    "S2": "Wicaksono, M.F. & Syahrin, A. (2022). Penerapan IoT untuk Monitoring Suhu dan Kelembaban pada Tanaman Cabai. Jurnal ELKOMIKA (Itenas), 10(3), hal. 568-578. DOI: https://doi.org/10.26760/elkomika.v10i3.568 (Akses terbuka: https://ejurnal.itenas.ac.id/index.php/elkomika/article/view/568, diakses 13 November 2026)"
+  },
+  "sensor": [
+    {"kunci": "kelembapan_tanah", "label": "Kelembapan tanah", "satuan": "%",  "min": 0,   "maks": 100},
+    {"kunci": "ph_tanah",         "label": "pH tanah",         "satuan": "",   "min": 0,   "maks": 14},
+    {"kunci": "suhu_udara",       "label": "Suhu udara",       "satuan": "C",  "min": -10, "maks": 60},
+    {"kunci": "kelembapan_udara", "label": "Kelembapan udara", "satuan": "%",  "min": 0,   "maks": 100}
+  ],
+  "ambang": [
+    {"kunci": "kelembapan_tanah", "operator": "<", "batas": 40, "fakta": "tanah kering",                  "sumber": "kalibrasi sensor (asumsi proyek)"},
+    {"kunci": "kelembapan_tanah", "operator": ">", "batas": 80, "fakta": "tanah terlalu basah",           "sumber": "kalibrasi sensor (asumsi proyek)"},
+    {"kunci": "ph_tanah",         "operator": "<", "batas": 5.5, "fakta": "pH tanah di bawah 5,5",        "sumber": "S1 hal. 29; S2 hal. 807"},
+    {"kunci": "ph_tanah",         "operator": ">", "batas": 7.0, "fakta": "pH tanah di atas 7,0",         "sumber": "S1 hal. 29"},
+    {"kunci": "suhu_udara",       "operator": ">", "batas": 35,  "fakta": "suhu udara di atas 35°C",      "sumber": "S2 hal. 807"},
+    {"kunci": "suhu_udara",       "operator": "<", "batas": 15,  "fakta": "suhu udara di bawah 15°C",     "sumber": "S2 hal. 807"},
+    {"kunci": "kelembapan_udara", "operator": ">", "batas": 85,  "fakta": "kelembapan udara tinggi",      "sumber": "S2 hal. 807 (kelembapan optimal 60-80%; >85% kondusif bagi jamur patogen)"}
+  ],
+  "pertanyaan": [
+    {"fakta": "hujan tidak turun beberapa hari terakhir",        "tanya": "Apakah hujan tidak turun beberapa hari terakhir?"},
+    {"fakta": "sedang musim hujan",                              "tanya": "Apakah sekarang sedang musim hujan?"},
+    {"fakta": "air menggenang di bedengan atau drainase buruk",  "tanya": "Apakah air menggenang di bedengan / drainase buruk?"},
+    {"fakta": "daun layu mulai dari bawah dan menguning",        "tanya": "Apakah daun layu mulai dari bawah dan menguning?"}
+  ],
+  "dolomit": {
+    "sumber": "S1 Tabel 1 hal. 10 (data Balai Penelitian Tanaman Sayuran, 2020)",
+    "tabel": [
+      {"ph": 5.5, "ton_per_ha": 5.8},
+      {"ph": 5.0, "ton_per_ha": 7.8},
+      {"ph": 4.5, "ton_per_ha": 10.7},
+      {"ph": 4.0, "ton_per_ha": 13.6}
+    ]
+  },
+  "aturan": [
+    {"id": "R1",  "jika": ["tanah kering", "hujan tidak turun beberapa hari terakhir"], "mode": "dan",
+     "maka": "tanaman kekurangan air", "sumber": "S1",
+     "bukti": "hal. 13: penyiraman dilakukan bila tidak turun hujan"},
+    {"id": "R2",  "jika": ["tanah terlalu basah", "air menggenang di bedengan atau drainase buruk"], "mode": "atau",
+     "maka": "tanah becek", "sumber": "S1",
+     "bukti": "hal. 28: butuh drainase baik; kelembapan ideal lembab tetapi tidak becek"},
+    {"id": "R3",  "jika": ["tanah becek", "sedang musim hujan"], "mode": "dan",
+     "maka": "lingkungan mendukung penyakit tular air", "sumber": "S1",
+     "bukti": "hal. 21-24: layu dan antraknosa berkembang cepat di musim hujan; antraknosa menyebar lewat percikan air"},
+    {"id": "R4",  "jika": ["lingkungan mendukung penyakit tular air", "kelembapan udara tinggi"], "mode": "atau",
+     "maka": "risiko penyakit jamur", "sumber": "S1,S2",
+     "bukti": "S2 hal. 807-810: kelembapan tinggi berkepanjangan kondusif bagi jamur patogen"},
+    {"id": "R5",  "jika": ["risiko penyakit jamur", "daun layu mulai dari bawah dan menguning"], "mode": "dan",
+     "maka": "dugaan penyakit layu", "sumber": "S1",
+     "bukti": "hal. 21: layu dimulai dari daun bagian bawah, menguning, lalu menjalar ke atas"},
+    {"id": "R6",  "jika": ["pH tanah di bawah 5,5", "pH tanah di atas 7,0"], "mode": "atau",
+     "maka": "pH tanah di luar kisaran sesuai", "sumber": "S1,S2",
+     "bukti": "S1 hal. 28-29: pH sesuai 6-7 atau 5,5-6,8; S2 hal. 807: optimal 5,5-6,8"},
+    {"id": "R7",  "jika": ["pH tanah di luar kisaran sesuai"], "mode": "dan",
+     "maka": "serapan hara terganggu", "sumber": "S1,S2",
+     "bukti": "S1 hal. 29: ketersediaan P turun di bawah pH 5,5 dan terfiksasi di atas pH 7,0; S2 hal. 807: hara menurun drastis di bawah pH 5,5"},
+    {"id": "R8",  "jika": ["serapan hara terganggu", "pH tanah di bawah 5,5"], "mode": "dan",
+     "maka": "tindakan: lakukan pengapuran dolomit", "sumber": "S1",
+     "bukti": "hal. 10 dan 29: pengapuran untuk menaikkan pH tanah masam; dosis menurut pH (Tabel 1)"},
+    {"id": "R9",  "jika": ["serapan hara terganggu", "pH tanah di atas 7,0"], "mode": "dan",
+     "maka": "fosfor tertahan karena terfiksasi Ca dan Mg", "sumber": "S1",
+     "bukti": "hal. 29: di atas pH 7,0 fosfor difiksasi oleh Ca dan Mg"},
+    {"id": "R10", "jika": ["tanaman kekurangan air"], "mode": "dan",
+     "maka": "tindakan: lakukan penyiraman", "sumber": "S1",
+     "bukti": "hal. 13: penyiraman dilakukan apabila tidak turun hujan"},
+    {"id": "R11", "jika": ["tanah becek"], "mode": "dan",
+     "maka": "tindakan: kurangi penyiraman dan perbaiki drainase bedengan", "sumber": "S1",
+     "bukti": "hal. 28: drainase harus baik, tanah lembab tetapi tidak becek"},
+    {"id": "R12", "jika": ["risiko penyakit jamur"], "mode": "dan",
+     "maka": "tindakan: bersihkan lahan (sanitasi) dan beri Trichoderma", "sumber": "S1",
+     "bukti": "hal. 23: pengendalian antraknosa lewat pembersihan lahan dan Trichoderma; layu lewat sanitasi dan Trichoderma"},
+    {"id": "R13", "jika": ["dugaan penyakit layu"], "mode": "dan",
+     "maka": "tindakan: cabut dan musnahkan tanaman terserang", "sumber": "S1",
+     "bukti": "hal. 22-23: sanitasi dengan mencabut dan memusnahkan tanaman terserang; fungisida sebagai alternatif terakhir"},
+    {"id": "R14", "jika": ["suhu udara di atas 35°C"], "mode": "dan",
+     "maka": "risiko bunga gugur dan gagal berbuah (stres panas)", "sumber": "S2",
+     "bukti": "hal. 806-807: suhu di atas 35°C menyebabkan bunga gugur dan menghalangi pembentukan buah"},
+    {"id": "R15", "jika": ["suhu udara di bawah 15°C"], "mode": "dan",
+     "maka": "pertumbuhan vegetatif terganggu (suhu rendah)", "sumber": "S2",
+     "bukti": "hal. 807: suhu di bawah 15°C mengganggu pertumbuhan vegetatif"}
+  ]
+}
