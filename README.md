@@ -93,14 +93,14 @@ Metode yang dipilih adalah **Forward Chaining** (pelacakan maju), yaitu metode p
 
 ## 4. Kasus Uji dan Hasil Evaluasi
 
-Berikut pengujian sistem terhadap 3 skenario kasus uji utama (termasuk kasus positif dan kasus negatif):
+Berikut pengujian sistem terhadap 4 skenario kasus uji (mencakup kasus positif sederhana, kasus negatif/normal, kasus berantai panjang, dan kasus kombinasi pH basa):
 
 ### Kasus 1: Kekurangan Air & Tindakan Penyiraman (Kasus Positif)
 - **Tujuan:** Menguji aturan dasar kondisi tanah kering tanpa hujan.
 - **Masukan:** Kelembapan tanah: `30%`, pH: `6.3`, Suhu: `30°C`, RH: `70%`, Pengamatan: *"hujan tidak turun beberapa hari terakhir"*.
 - **Kesimpulan yang Dihasilkan:** `tanaman kekurangan air` $\rightarrow$ `tindakan: lakukan penyiraman`.
 - **Tangkapan Layar:**
-  ![Kasus 1](screenshot/kasus1.png)
+  ![Kasus 1](screenshot/kasus1.jpeg)
 
 ---
 
@@ -109,7 +109,7 @@ Berikut pengujian sistem terhadap 3 skenario kasus uji utama (termasuk kasus pos
 - **Masukan:** Kelembapan tanah: `60%`, pH: `6.4`, Suhu: `28°C`, RH: `75%`, Pengamatan: *(tidak ada)*.
 - **Kesimpulan yang Dihasilkan:** *Tidak ada masalah yang bisa disimpulkan dari data Anda (kondisi normal).*
 - **Tangkapan Layar:**
-  ![Kasus 2](screenshot/kasus2.png)
+  ![Kasus 2](screenshot/kasus2.jpeg)
 
 ---
 
@@ -120,7 +120,16 @@ Berikut pengujian sistem terhadap 3 skenario kasus uji utama (termasuk kasus pos
   1. Diagnosis: `tanah becek`, `lingkungan mendukung penyakit tular air`, `risiko penyakit jamur`, `dugaan penyakit layu`, `pH tanah di luar kisaran sesuai`, `serapan hara terganggu`, `risiko bunga gugur dan gagal berbuah (stres panas)`.
   2. Tindakan: Lakukan pengapuran dolomit (rekomendasi: pH 5.0 $\rightarrow$ 7.8 ton/ha atau 78 kg/100m²), kurangi penyiraman & perbaiki drainase, bersihkan lahan & beri Trichoderma, cabut dan musnahkan tanaman terserang.
 - **Tangkapan Layar:**
-  ![Kasus 3](screenshot/kasus3.png)
+  ![Kasus 3](screenshot/kasus3.jpeg)
+
+---
+
+### Kasus 4: pH Tanah Terlalu Tinggi & Suhu Dingin (Kasus Positif)
+- **Tujuan:** Menguji aturan fiksasi fosfor akibat pH basa dan hambatan vegetatif akibat suhu rendah.
+- **Masukan:** Kelembapan tanah: `55%`, pH: `7.4`, Suhu: `12°C`, RH: `70%`, Pengamatan: *(tidak ada)*.
+- **Kesimpulan yang Dihasilkan:** `fosfor tertahan karena terfiksasi Ca dan Mg`, `pertumbuhan vegetatif terganggu (suhu rendah)`.
+- **Tangkapan Layar:**
+  ![Kasus 4](screenshot/kasus4.jpeg)
 
 ---
 
